@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>EPC Daily Report</title>
+  <title>AIM Daily Report</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -74,11 +74,12 @@
 
 <div class="card">
   <div class="card-header">
-    <h1>📋 EPC Daily Construction Report</h1>
+    <h1>📋 AIM Daily Report</h1>
     <p>Fill in all required fields (*) then submit.</p>
   </div>
   <div class="card-body">
 
+    <!-- GENERAL INFO -->
     <div class="section-title">General Information</div>
     <div class="form-grid">
       <div>
@@ -103,7 +104,17 @@
       </div>
       <div>
         <label>Working Area <span class="req">*</span></label>
-        <input type="text" id="workingArea" placeholder="e.g. Area 3 - Tank Farm" required />
+        <select id="workingArea" required>
+          <option value="">— Select Working Area —</option>
+          <option>Pyrite Plant</option>
+          <option>Acid Plant</option>
+          <option>Chloride Plant</option>
+          <option>Copper Cathode Plant</option>
+          <option>Makarti Camp</option>
+          <option>Storage Facility</option>
+          <option>Waste Dump Facility</option>
+          <option>Labota</option>
+        </select>
       </div>
       <div>
         <label>Status <span class="req">*</span></label>
@@ -125,16 +136,17 @@
       </div>
     </div>
 
+    <!-- WORK CLASSIFICATION -->
     <div class="section-title">Work Classification</div>
     <div class="form-grid">
       <div>
-        <label>Discipline (Filter 1) <span class="req">*</span></label>
+        <label>Discipline <span class="req">*</span></label>
         <select id="discipline" required>
           <option value="">— Loading... —</option>
         </select>
       </div>
       <div>
-        <label>Work Category (Filter 2) <span class="req">*</span></label>
+        <label>Work Category <span class="req">*</span></label>
         <select id="workCategory" disabled required>
           <option value="">— Select Discipline first —</option>
         </select>
@@ -162,6 +174,7 @@
       </div>
     </div>
 
+    <!-- MANPOWER -->
     <div class="section-title">Manpower</div>
     <div class="form-grid">
       <div>
@@ -174,6 +187,7 @@
       </div>
     </div>
 
+    <!-- CREW BREAKDOWN -->
     <div class="section-title">Crew Breakdown</div>
     <div class="crew-grid">
       <div><label>MMS Crew</label><input type="number" id="crewMMS" min="0" value="0" /></div>
@@ -193,8 +207,9 @@
 </div>
 
 <script>
-  // ── REPLACE THIS WITH YOUR APPS SCRIPT /exec URL ──
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby_dBsyFE4M-ym5T4FBqImSIB7aUSCC1SC8q42COEuiJeRabBUaKJKMowudYIW9QkGv/exec';
+  // ── PASTE YOUR APPS SCRIPT /exec URL BELOW ──
+  const SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+  // ────────────────────────────────────────────
 
   // Set today's date
   document.getElementById('date').valueAsDate = new Date();
@@ -211,7 +226,10 @@
         sel.appendChild(o);
       });
     })
-    .catch(() => showStatus('Failed to load disciplines. Check SCRIPT_URL.', false));
+    .catch(() => {
+      document.getElementById('discipline').innerHTML =
+        '<option value="">⚠️ Failed to load — check SCRIPT_URL</option>';
+    });
 
   // Cascade: discipline → work category
   document.getElementById('discipline').addEventListener('change', function () {
@@ -238,15 +256,15 @@
   // Submit
   function handleSubmit() {
     const btn = document.getElementById('submitBtn');
-    const required = ['date','shift','supervisor','workingArea','status','jamMulai','discipline','workCategory','activity','manpower'];
-    for (const id of required) {
+    const requiredFields = ['date','shift','supervisor','workingArea','status',
+                            'jamMulai','discipline','workCategory','activity','manpower'];
+    for (const id of requiredFields) {
       if (!document.getElementById(id).value.trim()) {
         showStatus('Please fill in all required (*) fields.', false);
         document.getElementById(id).focus();
         return;
       }
     }
-
     btn.disabled = true;
     btn.textContent = 'Submitting...';
 
@@ -276,35 +294,33 @@
       crewSuperkrane: document.getElementById('crewSuperkrane').value,
     };
 
-    fetch(SCRIPT_URL, {
-      method: 'POST',
-      body: JSON.stringify(f)
-    })
-    .then(r => r.json())
-    .then(result => {
-      btn.disabled = false;
-      btn.textContent = 'Submit Daily Report';
-      if (result.success) {
-        showStatus('✅ Report submitted successfully!', true);
-        resetForm();
-      } else {
-        showStatus('❌ ' + result.message, false);
-      }
-    })
-    .catch(err => {
-      btn.disabled = false;
-      btn.textContent = 'Submit Daily Report';
-      showStatus('❌ Network error: ' + err.message, false);
-    });
+    fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(f) })
+      .then(r => r.json())
+      .then(result => {
+        btn.disabled = false;
+        btn.textContent = 'Submit Daily Report';
+        if (result.success) {
+          showStatus('✅ Report submitted successfully!', true);
+          resetForm();
+        } else {
+          showStatus('❌ ' + result.message, false);
+        }
+      })
+      .catch(err => {
+        btn.disabled = false;
+        btn.textContent = 'Submit Daily Report';
+        showStatus('❌ Network error — check SCRIPT_URL is correct.', false);
+      });
   }
 
   function resetForm() {
-    ['supervisor','contact','workingArea','wrNumber','wbs','equipmentTag','activity','photos','manpower','materialList']
+    ['supervisor','contact','wrNumber','wbs','equipmentTag',
+     'activity','photos','manpower','materialList']
       .forEach(id => document.getElementById(id).value = '');
     ['crewMMS','crewAGI','crewRGD','crewHAM','crewBMS','crewSuperkrane']
       .forEach(id => document.getElementById(id).value = '0');
     document.getElementById('date').valueAsDate = new Date();
-    ['discipline','shift','status'].forEach(id => document.getElementById(id).value = '');
+    ['discipline','shift','status','workingArea'].forEach(id => document.getElementById(id).value = '');
     ['jamMulai','jamSelesai'].forEach(id => document.getElementById(id).value = '');
     const c = document.getElementById('workCategory');
     c.innerHTML = '<option value="">— Select Discipline first —</option>';
