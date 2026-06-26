@@ -6,7 +6,6 @@
   <title>AIM Daily Report</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
       background: #f0f4f8;
@@ -14,160 +13,127 @@
       padding: 16px 10px;
       color: #1a202c;
     }
-
     .card {
-      max-width: 800px;
-      margin: 0 auto;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 24px rgba(0,0,0,.10);
-      overflow: hidden;
+      max-width: 800px; margin: 0 auto; background: #fff;
+      border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,.10); overflow: hidden;
     }
-
-    /* ── Header: logo LEFT, text RIGHT on mobile; reverse on desktop ── */
     .card-header {
       background: rgb(180,166,103);
-      color: #fff;
-      padding: 16px 20px;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 16px;
+      color: #fff; padding: 16px 20px;
+      display: flex; flex-direction: row;
+      align-items: center; gap: 16px;
     }
-
-    .card-header-logo {
-      flex-shrink: 0;
-    }
+    .card-header-logo { flex-shrink: 0; }
     .card-header-logo img {
-      height: 56px;
-      width: auto;
-      display: block;
-      background: #fff;
-      border-radius: 8px;
-      padding: 5px 9px;
+      height: 56px; width: auto; display: block;
+      background: #fff; border-radius: 8px; padding: 5px 9px;
     }
-
-    .card-header-text {
-      flex: 1;
-    }
-    .card-header-text h1 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      line-height: 1.3;
-    }
-    .card-header-text p {
-      margin-top: 3px;
-      font-size: .82rem;
-      opacity: .90;
-    }
-
+    .card-header-text { flex: 1; }
+    .card-header-text h1 { font-size: 1.2rem; font-weight: 700; line-height: 1.3; }
+    .card-header-text p  { margin-top: 3px; font-size: .82rem; opacity: .90; }
     .card-body { padding: 20px 20px; }
-
     .section-title {
-      font-size: .75rem;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: rgb(150,136,73);
-      margin: 24px 0 12px;
-      padding-bottom: 6px;
+      font-size: .75rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: rgb(150,136,73);
+      margin: 24px 0 12px; padding-bottom: 6px;
       border-bottom: 2px solid rgb(230,220,170);
     }
     .section-title:first-child { margin-top: 0; }
-
-    /* Default: 2 columns */
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .form-grid .full { grid-column: 1 / -1; }
-
-    /* Crew: 3 columns default, 2 on small */
-    .crew-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    label {
-      display: block;
-      font-size: .83rem;
-      font-weight: 600;
-      color: #374151;
-      margin-bottom: 4px;
-    }
+    .crew-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    label { display: block; font-size: .83rem; font-weight: 600; color: #374151; margin-bottom: 4px; }
     label .req { color: #ef4444; margin-left: 2px; }
-
     input, select, textarea {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1.5px solid #d1d5db;
-      border-radius: 7px;
-      font-size: .95rem;
-      background: #fff;
-      color: #1a202c;
-      transition: border-color .2s, box-shadow .2s;
-      /* Larger tap target on mobile */
-      min-height: 44px;
+      width: 100%; padding: 10px 12px; border: 1.5px solid #d1d5db;
+      border-radius: 7px; font-size: .95rem; background: #fff; color: #1a202c;
+      transition: border-color .2s, box-shadow .2s; min-height: 44px;
     }
     input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: rgb(180,166,103);
+      outline: none; border-color: rgb(180,166,103);
       box-shadow: 0 0 0 3px rgba(180,166,103,.18);
     }
     select:disabled { background: #f3f4f6; color: #9ca3af; cursor: not-allowed; }
     textarea { resize: vertical; min-height: 72px; }
-
     .hint { font-size: .74rem; color: #6b7280; margin-top: 4px; }
-
     .btn-submit {
-      display: block;
-      width: 100%;
-      margin-top: 24px;
-      padding: 14px;
-      background: rgb(180,166,103);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: opacity .2s;
-      min-height: 48px;
+      display: block; width: 100%; margin-top: 24px; padding: 14px;
+      background: rgb(180,166,103); color: #fff; border: none;
+      border-radius: 8px; font-size: 1rem; font-weight: 700;
+      cursor: pointer; transition: opacity .2s; min-height: 48px;
     }
     .btn-submit:hover  { opacity: .88; }
     .btn-submit:disabled { opacity: .55; cursor: not-allowed; }
-
     #statusMsg {
-      margin-top: 14px;
-      padding: 12px 16px;
-      border-radius: 8px;
-      font-size: .9rem;
-      font-weight: 600;
-      display: none;
+      margin-top: 14px; padding: 12px 16px; border-radius: 8px;
+      font-size: .9rem; font-weight: 600; display: none;
     }
     #statusMsg.success { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
     #statusMsg.error   { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
 
-    /* ── Mobile: single column ── */
+    /* ── Appendix Table ── */
+    .appendix-wrapper {
+      max-width: 800px; margin: 24px auto 0; background: #fff;
+      border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,.10);
+      overflow: hidden; padding-bottom: 20px;
+    }
+    .appendix-header {
+      background: rgb(180,166,103); color: #fff;
+      padding: 14px 20px;
+    }
+    .appendix-header h2 { font-size: 1rem; font-weight: 700; }
+    .appendix-header p  { font-size: .8rem; opacity: .88; margin-top: 2px; }
+    .appendix-body { padding: 16px 20px; }
+
+    .appendix-section { margin-bottom: 20px; }
+    .appendix-section-title {
+      font-size: .72rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: rgb(150,136,73);
+      padding: 6px 10px; background: rgb(245,240,220);
+      border-left: 4px solid rgb(180,166,103);
+      border-radius: 0 6px 6px 0; margin-bottom: 8px;
+    }
+    .appendix-table {
+      width: 100%; border-collapse: collapse; font-size: .82rem;
+    }
+    .appendix-table th {
+      background: #f9f6ec; color: rgb(120,106,53);
+      font-weight: 700; font-size: .75rem; letter-spacing: .05em;
+      text-transform: uppercase; padding: 8px 12px;
+      border-bottom: 2px solid rgb(220,210,160); text-align: left;
+    }
+    .appendix-table td {
+      padding: 7px 12px; border-bottom: 1px solid #f0ede0;
+      vertical-align: top; color: #374151;
+    }
+    .appendix-table tr:last-child td { border-bottom: none; }
+    .appendix-table tr:hover td { background: #fdfbf3; }
+    .tag-badge {
+      display: inline-block; background: #B4A667; color: #1C1C1E;
+      font-size: .75rem; font-weight: 800; padding: 3px 10px;
+      border-radius: 4px; font-family: monospace; letter-spacing: .06em;
+      border: 1.5px solid #8A7A3A;
+    }
+
     @media (max-width: 520px) {
       body { padding: 10px 6px; }
       .card-body { padding: 16px 14px; }
-
       .card-header { padding: 14px 16px; gap: 12px; }
       .card-header-logo img { height: 48px; }
       .card-header-text h1 { font-size: 1.05rem; }
       .card-header-text p  { font-size: .78rem; }
-
       .form-grid { grid-template-columns: 1fr; }
       .form-grid .full { grid-column: 1; }
       .crew-grid { grid-template-columns: 1fr 1fr; }
+      .appendix-body { padding: 12px 14px; }
+      .appendix-table { font-size: .78rem; }
+      .appendix-table th, .appendix-table td { padding: 6px 8px; }
     }
   </style>
 </head>
 <body>
 
+<!-- ══ FORM CARD ══ -->
 <div class="card">
   <div class="card-header">
     <div class="card-header-logo">
@@ -271,14 +237,18 @@
       </div>
     </div>
 
-    <!-- MANPOWER -->
-    <div class="section-title">Manpower</div>
+    <!-- MANPOWER DAN MATERIAL -->
+    <div class="section-title">Manpower dan Material</div>
     <div class="form-grid">
       <div>
         <label>Total Manpower <span class="req">*</span></label>
         <input type="number" id="manpower" min="0" step="1" placeholder="Total jumlah pekerja" required />
       </div>
       <div>
+        <label>Volume</label>
+        <input type="text" id="volume" placeholder="cth. 70m3" />
+      </div>
+      <div class="full">
         <label>List Penggunaan Material</label>
         <input type="text" id="materialList" placeholder="cth. Kabel 3x50mm² – 100m" />
       </div>
@@ -302,22 +272,126 @@
   </div>
 </div>
 
+<!-- ══ APPENDIX TABLE ══ -->
+<div class="appendix-wrapper">
+  <div class="appendix-header">
+    <h2>📎 Appendix — Panduan Kategori Pekerjaan</h2>
+    <p>Gunakan tabel ini sebagai acuan dalam memilih Disiplin dan Kategori Pekerjaan di atas.</p>
+  </div>
+  <div class="appendix-body">
+
+    <!-- MECHANICAL: PACKAGE -->
+    <div class="appendix-section">
+      <div class="appendix-section-title">Mechanical — Package</div>
+      <table class="appendix-table">
+        <thead>
+          <tr><th>Kategori</th><th>Kode Tag</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Package</td><td><span class="tag-badge">ADG</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">AGT</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">BCR</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">BIN</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">BLO</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">CHE</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">CPS</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">CYC</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">DUC</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">DOS</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">FDR</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">HEX</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">HOT</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">HPR</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">MVR</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">PLO</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">PSL</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">PSO</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">PSU</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">POI</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">SCM</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">STK</span></td></tr>
+          <tr><td>Package</td><td><span class="tag-badge">THK</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- MECHANICAL: ROTATING -->
+    <div class="appendix-section">
+      <div class="appendix-section-title">Mechanical — Rotating Equipment</div>
+      <table class="appendix-table">
+        <thead>
+          <tr><th>Kategori</th><th>Kode Tag</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Rotating</td><td><span class="tag-badge">BCV</span></td></tr>
+          <tr><td>Rotating</td><td><span class="tag-badge">DRY</span></td></tr>
+          <tr><td>Rotating</td><td><span class="tag-badge">FIL</span></td></tr>
+          <tr><td>Rotating</td><td><span class="tag-badge">QFB</span></td></tr>
+          <tr><td>Rotating</td><td><span class="tag-badge">SCV</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- MECHANICAL: STATIC -->
+    <div class="appendix-section">
+      <div class="appendix-section-title">Mechanical — Static Equipment</div>
+      <table class="appendix-table">
+        <thead>
+          <tr><th>Kategori</th><th>Kode Tag</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Static</td><td><span class="tag-badge">CAT</span></td></tr>
+          <tr><td>Static</td><td><span class="tag-badge">TNK</span></td></tr>
+          <tr><td>Static</td><td><span class="tag-badge">TOW</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ELECTRICAL: BIG CABLE -->
+    <div class="appendix-section">
+      <div class="appendix-section-title">Electrical — Big Cable</div>
+      <table class="appendix-table">
+        <thead>
+          <tr><th>Kategori</th><th>Keterangan</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Big Cable</td><td>≥ 1 x 185 mm²</td></tr>
+          <tr><td>Big Cable</td><td>≥ 2 x 150 mm²</td></tr>
+          <tr><td>Big Cable</td><td>≥ 3 x 120 mm²</td></tr>
+          <tr><td>Big Cable</td><td>≥ 4 x 95 mm²</td></tr>
+          <tr><td>Big Cable</td><td>≥ 5 x 70 mm²</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ELECTRICAL: SMALL CABLE -->
+    <div class="appendix-section">
+      <div class="appendix-section-title">Electrical — Small Cable</div>
+      <table class="appendix-table">
+        <thead>
+          <tr><th>Kategori</th><th>Keterangan</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Small Cable</td><td>&lt; 1 x 185 mm²</td></tr>
+          <tr><td>Small Cable</td><td>&lt; 2 x 150 mm²</td></tr>
+          <tr><td>Small Cable</td><td>&lt; 3 x 120 mm²</td></tr>
+          <tr><td>Small Cable</td><td>&lt; 4 x 95 mm²</td></tr>
+          <tr><td>Small Cable</td><td>&lt; 5 x 70 mm²</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
 <script>
-  // ── GANTI DENGAN URL APPS SCRIPT /exec ANDA ──
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwBoFfQrWk9IDoJ_AtVRr6ZD6DQu-PeE2krFZFBNB7oG5xQjHeRxzmrRQR1wdIc2FHE/exec';
-  // ─────────────────────────────────────────────
+  const SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
 
-  // Set tanggal hari ini
   document.getElementById('date').valueAsDate = new Date();
+  const now = new Date();
+  document.getElementById('jamMulai').value =
+    String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
 
-  // Set jam sekarang (format 24 jam) sebagai default jam mulai
-  function getNow24() {
-    const now = new Date();
-    return String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
-  }
-  document.getElementById('jamMulai').value = getNow24();
-
-  // Muat dropdown Disiplin
   fetch(SCRIPT_URL + '?action=getDisciplines')
     .then(r => r.json())
     .then(disciplines => {
@@ -334,7 +408,6 @@
         '<option value="">⚠️ Gagal memuat — periksa SCRIPT_URL</option>';
     });
 
-  // Cascade: Disiplin → Kategori Pekerjaan
   document.getElementById('discipline').addEventListener('change', function () {
     const catSel = document.getElementById('workCategory');
     catSel.innerHTML = '<option value="">— Memuat... —</option>';
@@ -356,11 +429,11 @@
       });
   });
 
-  // Kirim formulir
   function handleSubmit() {
     const btn = document.getElementById('submitBtn');
     const wajib = ['date','shift','supervisor','workingArea','status',
-                   'jamMulai','discipline','workCategory','activity','manpower'];
+                   'jamMulai','discipline','workCategory',
+                   'activity','manpower'];
     for (const id of wajib) {
       if (!document.getElementById(id).value.trim()) {
         showStatus('Harap isi semua kolom yang wajib (*).', false);
@@ -385,6 +458,7 @@
       status:         document.getElementById('status').value,
       supervisor:     document.getElementById('supervisor').value,
       jamSelesai:     document.getElementById('jamSelesai').value,
+      volume:         document.getElementById('volume').value,
       materialList:   document.getElementById('materialList').value,
       contact:        document.getElementById('contact').value,
       manpower:       document.getElementById('manpower').value,
@@ -410,20 +484,23 @@
       .catch(() => {
         btn.disabled = false;
         btn.textContent = 'Kirim Laporan Harian';
-        showStatus('❌ Gagal mengirim — periksa koneksi internet atau SCRIPT_URL.', false);
+        showStatus('❌ Gagal mengirim — periksa koneksi atau SCRIPT_URL.', false);
       });
   }
 
   function resetForm() {
-    ['supervisor','contact','wrNumber','wbs','equipmentTag','activity','manpower','materialList']
+    ['supervisor','contact','wrNumber','wbs','equipmentTag',
+     'activity','manpower','volume','materialList']
       .forEach(id => document.getElementById(id).value = '');
     ['crewMMS','crewAGI','crewRGD','crewHAM','crewBMS']
       .forEach(id => document.getElementById(id).value = '0');
     document.getElementById('date').valueAsDate = new Date();
-    document.getElementById('jamMulai').value = getNow24();
-    document.getElementById('jamSelesai').value = '';
     ['discipline','shift','status','workingArea']
       .forEach(id => document.getElementById(id).value = '');
+    const r = new Date();
+    document.getElementById('jamMulai').value =
+      String(r.getHours()).padStart(2,'0') + ':' + String(r.getMinutes()).padStart(2,'0');
+    document.getElementById('jamSelesai').value = '';
     const c = document.getElementById('workCategory');
     c.innerHTML = '<option value="">— Pilih Disiplin terlebih dahulu —</option>';
     c.disabled = true;
