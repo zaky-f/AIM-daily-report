@@ -104,7 +104,11 @@
     }
     .appendix-table td {
       padding: 7px 12px; border-bottom: 1px solid #f0ede0;
-      vertical-align: top; color: #374151;
+      vertical-align: middle; color: #374151;
+    }
+    .appendix-table td:first-child {
+      width: 140px;
+      white-space: nowrap;
     }
     .appendix-table tr:last-child td { border-bottom: none; }
     .appendix-table tr:hover td { background: #fdfbf3; }
@@ -309,7 +313,7 @@
           <tr><td><span class="tag-badge">PSU</span></td><td>Pump — Sump</td></tr>
           <tr><td><span class="tag-badge">POI</span></td><td>Pump — Oil</td></tr>
           <tr><td><span class="tag-badge">SCM</span></td><td>Screening Machine</td></tr>
-          <tr><td><span class="tag-badge">STK</span></td><td>Stack</td></tr>
+          <tr><td><span class="tag-badge">STK</span></td><td>Stacker</td></tr>
           <tr><td><span class="tag-badge">THK</span></td><td>Thickener</td></tr>
         </tbody>
       </table>
@@ -355,6 +359,7 @@
           <tr><th>Kategori</th><th>Keterangan</th></tr>
         </thead>
         <tbody>
+          <tr><td>Big Cable</td><td>Semua Kabel Panel diatas 10kV</td></tr>
           <tr><td>Big Cable</td><td>≥ 1 x 185 mm²</td></tr>
           <tr><td>Big Cable</td><td>≥ 2 x 150 mm²</td></tr>
           <tr><td>Big Cable</td><td>≥ 3 x 120 mm²</td></tr>
@@ -385,7 +390,7 @@
 </div>
 
 <script>
-  const SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwBoFfQrWk9IDoJ_AtVRr6ZD6DQu-PeE2krFZFBNB7oG5xQjHeRxzmrRQR1wdIc2FHE/exec';
 
   document.getElementById('date').valueAsDate = new Date();
   const now = new Date();
