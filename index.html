@@ -171,8 +171,8 @@
         <input type="text" id="supervisor" placeholder="Nama lengkap" required />
       </div>
       <div>
-        <label>Kontak</label>
-        <input type="text" id="contact" placeholder="No. HP / WhatsApp" />
+        <label>Kontak <span class="req">*</span></label>
+        <input type="text" id="contact" placeholder="No. HP / WhatsApp" required />
       </div>
       <div>
         <label>Wilayah Kerja <span class="req">*</span></label>
@@ -202,8 +202,8 @@
         <input type="time" id="jamMulai" required />
       </div>
       <div>
-        <label>Jam Selesai Pekerjaan</label>
-        <input type="time" id="jamSelesai" />
+        <label>Jam Selesai Pekerjaan <span class="req">*</span></label>
+        <input type="time" id="jamSelesai" required />
       </div>
     </div>
 
@@ -228,8 +228,8 @@
         <input type="text" id="wbs" placeholder="cth. 4306" />
       </div>
       <div>
-        <label>Nomor WR / WO / PI / CWO / DERF</label>
-        <input type="text" id="wrNumber" placeholder="cth. CWO 250" />
+        <label>Nomor WR / WO / PI / CWO / DERF <span class="req">*</span></label>
+        <input type="text" id="wrNumber" placeholder="cth. CWO 250" required />
       </div>
       <div>
         <label>Nomor Peralatan</label>
@@ -261,11 +261,11 @@
     <!-- RINCIAN CREW -->
     <div class="section-title">Rincian Crew</div>
     <div class="crew-grid">
-      <div><label>MMS Crew</label><input type="number" id="crewMMS" min="0" value="0" /></div>
-      <div><label>AGI Crew</label><input type="number" id="crewAGI" min="0" value="0" /></div>
-      <div><label>RGD Crew</label><input type="number" id="crewRGD" min="0" value="0" /></div>
-      <div><label>HAM Crew</label><input type="number" id="crewHAM" min="0" value="0" /></div>
-      <div><label>BMS Crew</label><input type="number" id="crewBMS" min="0" value="0" /></div>
+      <div><label>MMS Crew <span class="req">*</span></label><input type="number" id="crewMMS" min="0" value="0" required /></div>
+      <div><label>AGI Crew <span class="req">*</span></label><input type="number" id="crewAGI" min="0" value="0" required /></div>
+      <div><label>RGD Crew <span class="req">*</span></label><input type="number" id="crewRGD" min="0" value="0" required /></div>
+      <div><label>HAM Crew <span class="req">*</span></label><input type="number" id="crewHAM" min="0" value="0" required /></div>
+      <div><label>BMS Crew <span class="req">*</span></label><input type="number" id="crewBMS" min="0" value="0" required /></div>
     </div>
 
     <button class="btn-submit" id="submitBtn" onclick="handleSubmit()">
@@ -436,9 +436,9 @@
 
   function handleSubmit() {
     const btn = document.getElementById('submitBtn');
-    const wajib = ['date','shift','supervisor','workingArea','status',
-                   'jamMulai','discipline','workCategory',
-                   'activity','manpower'];
+    const wajib = ['date','shift','supervisor','contact','workingArea','status',
+                   'jamMulai','jamSelesai','discipline','workCategory','wrNumber',
+                   'activity','manpower','crewMMS','crewAGI','crewRGD','crewHAM','crewBMS'];
     for (const id of wajib) {
       if (!document.getElementById(id).value.trim()) {
         showStatus('Harap isi semua kolom yang wajib (*).', false);
