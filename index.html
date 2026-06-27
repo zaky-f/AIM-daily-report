@@ -397,14 +397,9 @@
   document.getElementById('jamMulai').value =
     String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
 
-  // Muat SEMUA data kategori sekali di awal
-  let CATEGORY_DATA = [];
-
-  fetch(SCRIPT_URL + '?action=getAll')
+  fetch(SCRIPT_URL + '?action=getDisciplines')
     .then(r => r.json())
-    .then(data => {
-      CATEGORY_DATA = data;
-      const disciplines = [...new Set(data.map(x => x.d))];
+    .then(disciplines => {
       const sel = document.getElementById('discipline');
       sel.innerHTML = '<option value="">— Pilih Disiplin —</option>';
       disciplines.forEach(d => {
@@ -418,23 +413,25 @@
         '<option value="">⚠️ Gagal memuat — periksa SCRIPT_URL</option>';
     });
 
-  // Cascade INSTAN — filter dari data yang sudah ada, tanpa fetch ulang
   document.getElementById('discipline').addEventListener('change', function () {
     const catSel = document.getElementById('workCategory');
+    catSel.innerHTML = '<option value="">— Memuat... —</option>';
+    catSel.disabled = true;
     if (!this.value) {
       catSel.innerHTML = '<option value="">— Pilih Disiplin terlebih dahulu —</option>';
-      catSel.disabled = true;
       return;
     }
-    const cats = CATEGORY_DATA.filter(x => x.d === this.value).map(x => x.c);
-    catSel.innerHTML = '<option value="">— Pilih Kategori Pekerjaan —</option>';
-    cats.forEach(c => {
-      const o = document.createElement('option');
-      o.value = o.textContent = c;
-      catSel.appendChild(o);
-    });
-    catSel.disabled = false;
-  });
+    fetch(SCRIPT_URL + '?action=getCategories&discipline=' + encodeURIComponent(this.value))
+      .then(r => r.json())
+      .then(cats => {
+        catSel.innerHTML = '<option value="">— Pilih Kategori Pekerjaan —</option>';
+        cats.forEach(c => {
+          const o = document.createElement('option');
+          o.value = o.textContent = c;
+          catSel.appendChild(o);
+        });
+        catSel.disabled = false;
+      });
   });
 
   function handleSubmit() {
